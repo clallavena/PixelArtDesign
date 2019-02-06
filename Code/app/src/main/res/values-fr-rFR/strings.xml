@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PixelArtDesign</string>
+    <string name="title_home">Bibliothèque</string>
+    <string name="title_creation">Mes travaux</string>
+    <string name="title_add">Créer</string>
+    <string name="title_settings">Réglages</string>
+</resources>

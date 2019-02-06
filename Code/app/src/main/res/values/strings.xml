@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PixelArtDesign</string>
+    <string name="title_home">Library</string>
+    <string name="title_creation">My creations</string>
+    <string name="title_add">Add</string>
+    <string name="title_settings">Settings</string>
+</resources>
