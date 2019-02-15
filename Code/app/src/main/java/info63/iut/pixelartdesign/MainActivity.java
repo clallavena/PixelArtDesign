@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
+import info63.iut.pixelartdesign.CameraFiles.CameraPreview;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,9 +54,8 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-
-    public void addPhoto(View view) {
-        Intent intent = new Intent(this, CameraActivity.class);
-        startActivity(intent);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

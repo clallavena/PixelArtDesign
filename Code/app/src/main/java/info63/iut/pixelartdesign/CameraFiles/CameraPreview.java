@@ -5,6 +5,7 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.app.Activity;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,6 +24,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // underlying surface is created and destroyed.
         mHolder = getHolder();
         mHolder.addCallback(this);
+        //mCamera.setPreviewCallback((Camera.PreviewCallback) mCamera);
         // deprecated setting, but required on Android versions prior to 3.0
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
@@ -38,7 +40,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
-        mCamera.release();
+        if (mCamera != null){
+            mCamera.stopPreview();
+        }
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
@@ -66,7 +70,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.startPreview();
 
         } catch (Exception e){
-            Log.d("devNote", "Error starting camera preview: " + e.getMessage());
+            Log.e("devNote", "Error starting camera preview: " + e.getMessage());
         }
     }
 }

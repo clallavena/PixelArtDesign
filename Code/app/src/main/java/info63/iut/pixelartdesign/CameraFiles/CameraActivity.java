@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import info63.iut.pixelartdesign.R;
@@ -15,12 +16,12 @@ import static info63.iut.pixelartdesign.AddActivity.getCameraInstance;
 
 public class CameraActivity extends AppCompatActivity {
     private static final int MY_CAMERA_REQUEST_CODE = 100;
+    private final int orientationDegree = 90;
     private Camera mCamera;
     private CameraPreview mPreview;
-    private int orientationDegree = 90;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
@@ -40,8 +41,15 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("devNote", "onPause camera is called");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mCamera.release();
+        Log.d("devNote", "onDestroy camera called!");
     }
 }
