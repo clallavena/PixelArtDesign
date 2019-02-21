@@ -1,53 +1,54 @@
 package info63.iut.pixelartdesign;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
-import info63.iut.pixelartdesign.CameraFiles.CameraPreview;
+import info63.iut.pixelartdesign.Fragments.AddFragment;
+import info63.iut.pixelartdesign.Fragments.HomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private TextView mTextMessage;
     private Intent intentAddActivity;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        Fragment selectedFragement;
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    selectedFragement = HomeFragment.newInstance();
+                    break;
                 case R.id.navigation_creation:
-                    mTextMessage.setText(R.string.title_creation);
-                    return true;
+                    break;
                 case R.id.navigation_add:
-                    startActivity(intentAddActivity);
-                    mTextMessage.setText(R.string.title_add);
-                    return true;
+                    selectedFragement = AddFragment.newInstance();
+                    break;
                 case R.id.navigation_settings:
-                    mTextMessage.setText(R.string.title_settings);
-                    return true;
+                    break;
             }
-            return false;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment, selectedFragement);
+            transaction.commit();
+            return true;
         }
     };
 
     @Override
+    // TODO: Régler le pb du NullPointerException sur le setContentView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intentAddActivity = new Intent(this, AddActivity.class);
+        intentAddActivity = new Intent(this, AddFragment.class);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

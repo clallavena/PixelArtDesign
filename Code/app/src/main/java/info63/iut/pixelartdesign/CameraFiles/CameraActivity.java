@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 
 import info63.iut.pixelartdesign.R;
 
-import static info63.iut.pixelartdesign.AddActivity.getCameraInstance;
+import static info63.iut.pixelartdesign.Fragments.AddFragment.getCameraInstance;
 
 public class CameraActivity extends AppCompatActivity {
     private static final int MY_CAMERA_REQUEST_CODE = 100;
