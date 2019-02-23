@@ -150,7 +150,7 @@
 											"top": 440,
 											"width": 194.49853515625,
 											"height": 13,
-											"text": "+newCanva(img : BufferedImage)",
+											"text": "+newCanva(img : Bitmap)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -396,7 +396,7 @@
 											"top": 904,
 											"width": 247,
 											"height": 13,
-											"text": "+ConcreteCanva(img: BufferedImage)",
+											"text": "+ConcreteCanva(img: Bitmap)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -576,7 +576,7 @@
 											"top": 670,
 											"width": 160.72900390625,
 											"height": 13,
-											"text": "+img: BufferedImage",
+											"text": "+img: Bitmap",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1155,7 +1155,7 @@
 											"top": 904,
 											"width": 279.76025390625,
 											"height": 13,
-											"text": "+ConcreteCanvaColorBlind(img: BufferedImage)",
+											"text": "+ConcreteCanvaColorBlind(img: Bitmap)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1555,7 +1555,7 @@
 											"top": 280,
 											"width": 265.078125,
 											"height": 13,
-											"text": "+pixelize(img: BufferedImage): BufferedImage",
+											"text": "+pixelize(img: Bitmap): Bitmap",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1573,7 +1573,7 @@
 											"width": 265.078125,
 											"height": 13,
 											"underline": true,
-											"text": "+getImage(path: String): BufferedImage",
+											"text": "+getImage(path: String): Bitmap",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1768,7 +1768,7 @@
 											"top": 728,
 											"width": 202.44580078125,
 											"height": 13,
-											"text": "+CelledImage(img: BufferedImage)",
+											"text": "+CelledImage(img: Bitmap)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2509,7 +2509,7 @@
 											"top": 264,
 											"width": 221.12158203125,
 											"height": 13,
-											"text": "+newCanva(img: BufferedImage)",
+											"text": "+newCanva(img: Bitmap)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3055,7 +3055,7 @@
 										"$ref": "AAAAAAFpEEqIOAsabXE="
 									},
 									"name": "img ",
-									"type": "BufferedImage"
+									"type": "Bitmap"
 								}
 							]
 						},
@@ -3162,7 +3162,7 @@
 										"$ref": "AAAAAAFpEJqzLgBeoA8="
 									},
 									"name": "img",
-									"type": "BufferedImage"
+									"type": "Bitmap"
 								}
 							]
 						}
@@ -3214,7 +3214,7 @@
 								"$ref": "AAAAAAFpEEXnrgq0Phw="
 							},
 							"name": "img",
-							"type": "BufferedImage"
+							"type": "Bitmap"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3442,7 +3442,7 @@
 										"$ref": "AAAAAAFpEJ8K+QFt+VA="
 									},
 									"name": "img",
-									"type": "BufferedImage"
+									"type": "Bitmap"
 								}
 							]
 						},
@@ -3490,7 +3490,7 @@
 										"$ref": "AAAAAAFpEGkacg1xiFI="
 									},
 									"name": "img",
-									"type": "BufferedImage"
+									"type": "Bitmap"
 								},
 								{
 									"_type": "UMLParameter",
@@ -3498,7 +3498,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFpEGkacg1xiFI="
 									},
-									"type": "BufferedImage",
+									"type": "Bitmap",
 									"direction": "return"
 								}
 							]
@@ -3527,7 +3527,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFpEKjfegIKVrs="
 									},
-									"type": "BufferedImage",
+									"type": "Bitmap",
 									"direction": "return"
 								}
 							]
@@ -3557,7 +3557,7 @@
 										"$ref": "AAAAAAFpEHCZ/g6UjRo="
 									},
 									"name": "img",
-									"type": "BufferedImage"
+									"type": "Bitmap"
 								}
 							]
 						}
@@ -3616,7 +3616,7 @@
 										"$ref": "AAAAAAFpFa6nIHQHziA="
 									},
 									"name": "img",
-									"type": "BufferedImage"
+									"type": "Bitmap"
 								}
 							],
 							"isAbstract": true
