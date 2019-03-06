@@ -12,4 +12,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="error_permission_text">You have to granted the Camera permission and the storage permission or you won\'t be able to access this part of the app :(</string>
 </resources>

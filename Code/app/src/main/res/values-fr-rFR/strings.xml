@@ -9,4 +9,5 @@
     <string name="capture">Capture</string>
     <string name="title_activity_add">Ajouter</string>
     <string name="hello_blank_fragment">Hello World Blank</string>
+    <string name="error_permission_text">Vous devez accepter l\'accées à la camera et à l\'écriture de vos fichiers à l\'application ou vous ne pourrez pas accéder à cette partie de l\'application :(</string>
 </resources>
