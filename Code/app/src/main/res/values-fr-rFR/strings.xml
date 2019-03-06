@@ -7,4 +7,6 @@
     <string name="title_settings">Réglages</string>
     <string name="add_button">Ajouter</string>
     <string name="capture">Capture</string>
+    <string name="title_activity_add">Ajouter</string>
+    <string name="hello_blank_fragment">Hello World Blank</string>
 </resources>

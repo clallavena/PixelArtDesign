@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
     };
 
     @Override
-    // TODO: Régler le pb du NullPointerException sur le setContentView
+    // TODO: Régler le pb du NullPointerException sur le setContentView avec la balise <fragment>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

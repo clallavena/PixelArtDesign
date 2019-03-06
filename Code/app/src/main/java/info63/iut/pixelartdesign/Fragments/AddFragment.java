@@ -44,6 +44,7 @@ public class AddFragment extends Fragment {
         return view;
     }
 
+    // TODO: Faire une action pour la caméra frontale, id=1, faire une vérif du nombre de caméra disponible sur l'appareil.
     public static Camera getCameraInstance(){
         Camera c = null;
         try {

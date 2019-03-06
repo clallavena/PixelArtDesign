@@ -31,6 +31,7 @@ public class CameraActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
          }
         mCamera = getCameraInstance();
+        Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
 
         mCamera.setDisplayOrientation(orientationDegree);
 
@@ -52,4 +53,5 @@ public class CameraActivity extends AppCompatActivity {
         mCamera.release();
         Log.d("devNote", "onDestroy camera called!");
     }
+
 }
