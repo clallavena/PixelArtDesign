@@ -29,11 +29,13 @@ public class MainActivity extends AppCompatActivity{
                     selectedFragement = HomeFragment.newInstance();
                     break;
                 case R.id.navigation_creation:
+                    // TODO: Layout à faire (sinon crash)
                     break;
                 case R.id.navigation_add:
                     selectedFragement = AddFragment.newInstance();
                     break;
                 case R.id.navigation_settings:
+                    // TODO: Layout à faire (sinon crash)
                     break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

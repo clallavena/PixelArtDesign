@@ -44,18 +44,6 @@ public class AddFragment extends Fragment {
         return view;
     }
 
-    // TODO: Faire une action pour la caméra frontale, id=1, faire une vérif du nombre de caméra disponible sur l'appareil.
-    public static Camera getCameraInstance(){
-        Camera c = null;
-        try {
-            c = Camera.open();
-        }
-        catch (Exception e){
-            Log.d("devNote", "Camera unreachable");
-        }
-        return c; // returns null if camera is unavailable
-    }
-
     public void addPhoto(View view) {
         Intent intent = new Intent(view.getContext(), CameraActivity.class);
         startActivity(intent);

@@ -33,7 +33,6 @@
             android:label="@string/title_activity_add" />
 
         <activity android:name=".CameraFiles.CameraActivity"
-            android:screenOrientation="portrait"
             android:parentActivityName=".Fragments.AddFragment">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                         android:value=".Fragments.AddFragment"/>

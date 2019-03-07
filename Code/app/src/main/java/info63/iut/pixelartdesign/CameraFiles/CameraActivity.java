@@ -1,7 +1,10 @@
 package info63.iut.pixelartdesign.CameraFiles;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
@@ -11,9 +14,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.OrientationEventListener;
+import android.view.Surface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +30,7 @@ import java.util.Date;
 
 import info63.iut.pixelartdesign.R;
 
-import static info63.iut.pixelartdesign.Fragments.AddFragment.getCameraInstance;
+import static android.view.OrientationEventListener.ORIENTATION_UNKNOWN;
 
 public class CameraActivity extends AppCompatActivity {
     private static final int MY_CAMERA_REQUEST_CODE = 100;
@@ -45,8 +51,6 @@ public class CameraActivity extends AppCompatActivity {
      * Create a File for saving an image or video
      */
     private static File getOutputMediaFile(int type) {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
 
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "PixelArtsDesign_Photo");
@@ -84,6 +88,7 @@ public class CameraActivity extends AppCompatActivity {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
+                mCamera.startPreview();
             } catch (FileNotFoundException e) {
                 Log.d("devNote", "File not found: " + e.getMessage());
             } catch (IOException e) {
@@ -108,6 +113,16 @@ public class CameraActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         }
 
+        mCamera = getCameraInstance();
+        Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
+
+        setCameraDisplayOrientation(this, 0, mCamera);
+
+        // Create our Preview view and set it as the content of our activity.
+        mPreview = new CameraPreview(this, mCamera);
+        final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        preview.addView(mPreview);
+
         // Listener button_capture
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
@@ -116,19 +131,52 @@ public class CameraActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         // get an image from the camera
                         mCamera.takePicture(null, null, mPicture);
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_picture), Toast.LENGTH_SHORT).show();
                     }
                 }
         );
+    }
 
-        mCamera = getCameraInstance();
-        Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
+    public void setCameraDisplayOrientation(Activity activity,
+                                                   int cameraId, Camera camera) {
+        Camera.CameraInfo info =
+                new Camera.CameraInfo();
+        Camera.getCameraInfo(cameraId, info);
+        int rotation = activity.getWindowManager().getDefaultDisplay()
+                .getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0: degrees = 0; break;
+            case Surface.ROTATION_90: degrees = 90; break;
+            case Surface.ROTATION_180: degrees = 180; break;
+            case Surface.ROTATION_270: degrees = 270; break;
+        }
 
-        mCamera.setDisplayOrientation(ORIENTATION_DEGREE);
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;
+        } else {
+            result = (info.orientation - degrees + 360) % 360;
+        }
+        onOrientationChanged(result);
+        camera.setDisplayOrientation(result);
+        //camera.getParameters().setRotation(result);
+    }
 
-        // Create our Preview view and set it as the content of our activity.
-        mPreview = new CameraPreview(this, mCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-        preview.addView(mPreview);
+    public void onOrientationChanged(int orientation) {
+        if (orientation == ORIENTATION_UNKNOWN) return;
+        android.hardware.Camera.CameraInfo info =
+                new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(0, info);
+        orientation = (orientation + 45) / 90 * 90;
+        int rotation = 0;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            rotation = (info.orientation - orientation + 360) % 360;
+        } else {  // back-facing camera
+            rotation = (info.orientation + orientation) % 360;
+        }
+        mCamera.getParameters().setRotation(rotation);
     }
 
     /**
@@ -170,6 +218,18 @@ public class CameraActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    // TODO: Faire une action pour la caméra frontale, id=1, faire une vérif du nombre de caméra disponible sur l'appareil.
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open();
+        }
+        catch (Exception e){
+            Log.d("devNote", "Camera unreachable");
+        }
+        return c; // returns null if camera is unavailable
     }
 
     @Override
