@@ -43,9 +43,4 @@ public class AddFragment extends Fragment {
         });
         return view;
     }
-
-    public void addPhoto(View view) {
-        Intent intent = new Intent(view.getContext(), CameraActivity.class);
-        startActivity(intent);
-    }
 }

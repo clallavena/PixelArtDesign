@@ -11,7 +11,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import info63.iut.pixelartdesign.Fragments.AddFragment;
+import info63.iut.pixelartdesign.Fragments.CreationFragment;
 import info63.iut.pixelartdesign.Fragments.HomeFragment;
+import info63.iut.pixelartdesign.Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -29,13 +31,13 @@ public class MainActivity extends AppCompatActivity{
                     selectedFragement = HomeFragment.newInstance();
                     break;
                 case R.id.navigation_creation:
-                    // TODO: Layout à faire (sinon crash)
+                    selectedFragement = CreationFragment.newInstance();
                     break;
                 case R.id.navigation_add:
                     selectedFragement = AddFragment.newInstance();
                     break;
                 case R.id.navigation_settings:
-                    // TODO: Layout à faire (sinon crash)
+                    selectedFragement = SettingsFragment.newInstance();
                     break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity{
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment, HomeFragment.newInstance());
+        transaction.commit();
     }
 
     @Override

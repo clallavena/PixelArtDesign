@@ -144,6 +144,7 @@ public class CameraActivity extends AppCompatActivity {
         Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
+        Camera.Parameters parameters = camera.getParameters();
         int degrees = 0;
         switch (rotation) {
             case Surface.ROTATION_0: degrees = 0; break;
@@ -159,12 +160,14 @@ public class CameraActivity extends AppCompatActivity {
         } else {
             result = (info.orientation - degrees + 360) % 360;
         }
-        onOrientationChanged(result);
+        Log.d("devNoteCamera", String.valueOf(result));
+        //onOrientationChanged(result, parameters);
+        parameters.setRotation(result);
         camera.setDisplayOrientation(result);
-        //camera.getParameters().setRotation(result);
+        camera.setParameters(parameters);
     }
 
-    public void onOrientationChanged(int orientation) {
+    public void onOrientationChanged(int orientation, Camera.Parameters parameters) {
         if (orientation == ORIENTATION_UNKNOWN) return;
         android.hardware.Camera.CameraInfo info =
                 new android.hardware.Camera.CameraInfo();
@@ -176,7 +179,8 @@ public class CameraActivity extends AppCompatActivity {
         } else {  // back-facing camera
             rotation = (info.orientation + orientation) % 360;
         }
-        mCamera.getParameters().setRotation(rotation);
+        Log.d("devNoteCamera", "rotation onOrientationChanged: " + String.valueOf(rotation-90));
+        parameters.setRotation(rotation);
     }
 
     /**

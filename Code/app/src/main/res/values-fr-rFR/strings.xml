@@ -11,4 +11,6 @@
     <string name="hello_blank_fragment">Hello World Blank</string>
     <string name="error_permission_text">Vous devez accepter l\'accées à la camera et à l\'écriture de vos fichiers à l\'application ou vous ne pourrez pas accéder à cette partie de l\'application :(</string>
     <string name="toast_picture">Photo prise !</string>
+    <string name="creation_fragment">Fragment création</string>
+    <string name="settings_fragment">Fragment Parametre</string>
 </resources>

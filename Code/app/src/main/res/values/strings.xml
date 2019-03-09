@@ -15,4 +15,6 @@
 
     <string name="error_permission_text">You have to granted the Camera permission and the storage permission or you won\'t be able to access this part of the app :(</string>
     <string name="toast_picture">Picture taken</string>
+    <string name="creation_fragment">Creation Fragment</string>
+    <string name="settings_fragment">Settings Fragment</string>
 </resources>
