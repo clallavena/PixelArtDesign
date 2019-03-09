@@ -4,4 +4,17 @@
     <string name="title_creation">My creations</string>
     <string name="title_add">Add</string>
     <string name="title_settings">Settings</string>
+    <string name="add_button">Add Photo</string>
+    <string name="title_activity_add">AddActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="capture">Capture</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="error_permission_text">You have to granted the Camera permission and the storage permission or you won\'t be able to access this part of the app :(</string>
+    <string name="toast_picture">Picture taken</string>
+    <string name="creation_fragment">Creation Fragment</string>
+    <string name="settings_fragment">Settings Fragment</string>
 </resources>

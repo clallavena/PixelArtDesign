@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.AddFragment"
+    android:orientation="vertical">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left">
+
+        <ImageButton
+            android:id="@+id/imagePerso1"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/imagePerso2"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:visibility="visible" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="@string/add_button" />
+
+    </TableRow>
+
+</LinearLayout>
