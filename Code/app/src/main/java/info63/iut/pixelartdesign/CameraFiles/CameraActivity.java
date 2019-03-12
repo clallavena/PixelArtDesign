@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import info63.iut.pixelartdesign.R;
@@ -35,7 +37,9 @@ import static android.view.OrientationEventListener.ORIENTATION_UNKNOWN;
 public class CameraActivity extends AppCompatActivity {
     private static final int MY_CAMERA_REQUEST_CODE = 100;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 110;
+    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 120;
     private static final int MEDIA_TYPE_IMAGE = 1;
+    private final String ALBUM_NAME = "PixelArtsDesign_Photo";
     private final int ORIENTATION_DEGREE = 90;
     private Camera mCamera;
     private CameraPreview mPreview;
@@ -43,17 +47,17 @@ public class CameraActivity extends AppCompatActivity {
     /**
      * Create a file Uri for saving an image or video
      */
-    private static Uri getOutputMediaFileUri(int type) {
+    private Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
     /**
      * Create a File for saving an image or video
      */
-    private static File getOutputMediaFile(int type) {
+    private File getOutputMediaFile(int type) {
 
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "PixelArtsDesign_Photo");
+                Environment.DIRECTORY_PICTURES), ALBUM_NAME);
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
                 Log.d("devNote", "failed to create directory");
@@ -70,7 +74,6 @@ public class CameraActivity extends AppCompatActivity {
         } else {
             return null;
         }
-
         return mediaFile;
     }
 
@@ -79,15 +82,20 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+            File directory = getPublicAlbumStorageDir(ALBUM_NAME);
             if (pictureFile == null){
                 Log.d("devNote", "check storage permission, error creating media file");
                 return;
             }
 
             try {
+                Log.d("devNote", "Chemin du directory: " + getPublicAlbumStorageDir(ALBUM_NAME).toString());
+                Log.d("devNote", "Chemin de l'image capturé: " + pictureFile);
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
+                Log.d("devNote", "onPictureTaken list dicrectory: " + Arrays.toString(directory.list()));
+                Log.d("devNote", "onPictureTaken length dicrectory: " + directory.list().length);
                 mCamera.startPreview();
             } catch (FileNotFoundException e) {
                 Log.d("devNote", "File not found: " + e.getMessage());
@@ -112,6 +120,14 @@ public class CameraActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         }
+
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+//                == PackageManager.PERMISSION_DENIED) {
+//            //TODO: Demander une augmentation d'API pour la permission de lire un fichier
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_REQUEST_CODE);
+//            }
+//        }
 
         mCamera = getCameraInstance();
         Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
@@ -221,7 +237,37 @@ public class CameraActivity extends AppCompatActivity {
                 }
                 return;
             }
+
+            case READ_EXTERNAL_STORAGE_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("devNote", "Permission granted for READ");
+                    findViewById(R.id.camera_preview).setVisibility(View.VISIBLE);
+                    findViewById(R.id.textView_permissionError).setVisibility(View.GONE);
+                    findViewById(R.id.button_capture).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.camera_preview).setVisibility(View.GONE);
+                    findViewById(R.id.textView_permissionError).setVisibility(View.VISIBLE);
+                    findViewById(R.id.button_capture).setVisibility(View.GONE);
+                }
+                return;
+            }
         }
+    }
+
+    /**
+     * Récupère le chemin absolu du Directory passé en paramètre
+     * @param albumName Nom du fichier dont on cherche le chemin
+     * @return Le chemin du directory passé en paramètre
+     */
+    public File getPublicAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()) {
+            Log.e("devNote", "Directory not created");
+        }
+        return file;
     }
 
     // TODO: Faire une action pour la caméra frontale, id=1, faire une vérif du nombre de caméra disponible sur l'appareil.
