@@ -5,40 +5,23 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AddFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Fragments.AddFragment">
 
-    <TableRow
-        android:layout_width="fill_parent"
+    <ListView
+        android:id="@+id/list_item"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left">
+        android:layout_weight="1"
+        android:divider="@null"/>
 
-        <ImageButton
-            android:id="@+id/imagePerso1"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:visibility="visible" />
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:layout_gravity="center"
+        android:text="@string/add_button" />
 
-        <ImageButton
-            android:id="@+id/imagePerso2"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:visibility="visible" />
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="@string/add_button" />
-
-    </TableRow>
 
 </LinearLayout>
