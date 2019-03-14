@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import info63.iut.pixelartdesign.Fragments.AddFragment;
 import info63.iut.pixelartdesign.R;
 
 import static android.view.OrientationEventListener.ORIENTATION_UNKNOWN;
