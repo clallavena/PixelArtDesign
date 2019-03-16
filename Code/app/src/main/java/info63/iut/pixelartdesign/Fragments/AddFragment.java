@@ -3,8 +3,10 @@ package info63.iut.pixelartdesign.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +21,28 @@ import info63.iut.pixelartdesign.Adapter.ImageAdapter;
 import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
 import info63.iut.pixelartdesign.R;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment{
 
     private TextView mTextMessage;
     private List<String> imageButtonList = new ArrayList<>();
     private ListView listViewImage;
     private ImageAdapter adapter;
+    private File directoryImage = new File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES), CameraActivity.ALBUM_NAME);
 
     public static AddFragment newInstance(){
         return new AddFragment();
+    }
+
+    /**
+     * Charge les chemins des images du fichier passé en paramètre dans la liste de string imageButtonList;
+     */
+    public void chargementPathImages(){
+        for (String s :
+                directoryImage.list()) {
+            if (imageButtonList.contains(directoryImage.getPath() + "/" + s)) continue;
+            imageButtonList.add(directoryImage.getPath() + "/" + s);
+        }
     }
 
     @Override
@@ -41,12 +56,7 @@ public class AddFragment extends Fragment {
         listViewImage = view.findViewById(R.id.list_item);
 
         //Charger les images dans une liste de string
-        File directoryImage = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), CameraActivity.ALBUM_NAME);
-        for (String s :
-                directoryImage.list()) {
-            imageButtonList.add(directoryImage.getPath() + "/" + s);
-        }
+        chargementPathImages();
 
         adapter = new ImageAdapter(getActivity(), imageButtonList);
         listViewImage.setAdapter(adapter);
@@ -60,7 +70,30 @@ public class AddFragment extends Fragment {
             }
         });
 
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        chargementPathImages();
+        adapter = new ImageAdapter(getActivity(), imageButtonList);
+        listViewImage.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 }
