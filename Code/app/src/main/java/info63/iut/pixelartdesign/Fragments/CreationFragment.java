@@ -14,12 +14,6 @@ public class CreationFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment CreationFragment.
-     */
     public static CreationFragment newInstance() {
         CreationFragment fragment = new CreationFragment();
         Bundle args = new Bundle();
