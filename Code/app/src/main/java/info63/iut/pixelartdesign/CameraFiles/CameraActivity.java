@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import info63.iut.pixelartdesign.Accessors.FileAccessor;
 import info63.iut.pixelartdesign.Interfaces.Camera.ICamera;
+import info63.iut.pixelartdesign.Interfaces.Files.IMediaFiles;
 import info63.iut.pixelartdesign.R;
 
 public class CameraActivity extends AppCompatActivity implements ICamera {
@@ -35,7 +36,7 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            FileAccessor fi = new FileAccessor();
+            IMediaFiles fi = new FileAccessor();
             File pictureFile = fi.getOutputMediaFile(FileAccessor.MEDIA_TYPE_IMAGE, ALBUM_NAME);
 
 
@@ -144,10 +145,12 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
                     findViewById(R.id.camera_preview).setVisibility(View.VISIBLE);
                     findViewById(R.id.textView_permissionError).setVisibility(View.GONE);
                     findViewById(R.id.button_capture).setVisibility(View.VISIBLE);
+                    mCamera.startPreview();
                 } else {
                     findViewById(R.id.camera_preview).setVisibility(View.GONE);
                     findViewById(R.id.textView_permissionError).setVisibility(View.VISIBLE);
                     findViewById(R.id.button_capture).setVisibility(View.GONE);
+                    mCamera.stopPreview();
                 }
                 return;
             }
