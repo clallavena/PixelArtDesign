@@ -56,7 +56,7 @@ public class AddFragment extends Fragment{
         listViewImage = view.findViewById(R.id.list_item);
 
         //Charger les images dans une liste de string
-        chargementPathImages();
+        if (directoryImage.exists()) chargementPathImages();
 
         adapter = new ImageAdapter(getActivity(), imageButtonList);
         listViewImage.setAdapter(adapter);
@@ -86,7 +86,7 @@ public class AddFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        chargementPathImages();
+        if (directoryImage.exists()) chargementPathImages();
         adapter = new ImageAdapter(getActivity(), imageButtonList);
         listViewImage.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -74,15 +74,18 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         }
 
-        mCamera = getCameraInstance();
-        Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
 
-        setCameraDisplayOrientation(this, 0, mCamera);
+            mCamera = getCameraInstance();
+            Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
 
-        // Create our Preview view and set it as the content of our activity.
-        mPreview = new CameraPreview(this, mCamera);
-        final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-        preview.addView(mPreview);
+            setCameraDisplayOrientation(this, 0, mCamera);
+
+            // Create our Preview view and set it as the content of our activity.
+            mPreview = new CameraPreview(this, mCamera);
+            final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+            preview.addView(mPreview);
+        }
 
         // Listener button_capture
         Button captureButton = (Button) findViewById(R.id.button_capture);
@@ -101,8 +104,7 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
     @Override
     public void setCameraDisplayOrientation(Activity activity,
                                                    int cameraId, Camera camera) {
-        Camera.CameraInfo info =
-                new Camera.CameraInfo();
+        Camera.CameraInfo info = new Camera.CameraInfo();
         Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
@@ -142,15 +144,22 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("devNote", "Permission granted for camera");
-                    findViewById(R.id.camera_preview).setVisibility(View.VISIBLE);
-                    findViewById(R.id.textView_permissionError).setVisibility(View.GONE);
-                    findViewById(R.id.button_capture).setVisibility(View.VISIBLE);
-                    mCamera.startPreview();
+
+                    mCamera = getCameraInstance();
+                    Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
+
+                    setCameraDisplayOrientation(this, 0, mCamera);
+
+                    // Create our Preview view and set it as the content of our activity.
+                    mPreview = new CameraPreview(this, mCamera);
+                    final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+                    preview.addView(mPreview);
+
                 } else {
+                    Log.d("devNote", "onRequestPermissionsResult: permission refuse");
                     findViewById(R.id.camera_preview).setVisibility(View.GONE);
                     findViewById(R.id.textView_permissionError).setVisibility(View.VISIBLE);
                     findViewById(R.id.button_capture).setVisibility(View.GONE);
-                    mCamera.stopPreview();
                 }
                 return;
             }
@@ -204,6 +213,6 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mCamera.release();
+        if (mCamera != null) mCamera.release();
     }
 }
