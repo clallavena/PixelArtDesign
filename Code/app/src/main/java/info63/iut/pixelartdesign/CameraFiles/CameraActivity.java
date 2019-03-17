@@ -2,20 +2,14 @@ package info63.iut.pixelartdesign.CameraFiles;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.hardware.Camera;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.widget.Button;
@@ -32,24 +26,14 @@ import java.util.Date;
 
 import info63.iut.pixelartdesign.R;
 
-import static android.view.OrientationEventListener.ORIENTATION_UNKNOWN;
-
 public class CameraActivity extends AppCompatActivity {
     private static final int MY_CAMERA_REQUEST_CODE = 100;
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 110;
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 120;
     private static final int MEDIA_TYPE_IMAGE = 1;
-    private final String ALBUM_NAME = "PixelArtsDesign_Photo";
-    private final int ORIENTATION_DEGREE = 90;
+    public static final String ALBUM_NAME = "PixelArtsDesign_Photo";
     private Camera mCamera;
     private CameraPreview mPreview;
-
-    /**
-     * Create a file Uri for saving an image or video
-     */
-    private Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
-    }
 
     /**
      * Create a File for saving an image or video
@@ -106,7 +90,8 @@ public class CameraActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
+        final Activity here = this;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
@@ -120,14 +105,6 @@ public class CameraActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
         }
-
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-//                == PackageManager.PERMISSION_DENIED) {
-//            //TODO: Demander une augmentation d'API pour la permission de lire un fichier
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_REQUEST_CODE);
-//            }
-//        }
 
         mCamera = getCameraInstance();
         Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
@@ -148,6 +125,7 @@ public class CameraActivity extends AppCompatActivity {
                         // get an image from the camera
                         mCamera.takePicture(null, null, mPicture);
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_picture), Toast.LENGTH_SHORT).show();
+                        Bundle infoPath = new Bundle();
                     }
                 }
         );
@@ -181,22 +159,6 @@ public class CameraActivity extends AppCompatActivity {
         parameters.setRotation(result);
         camera.setDisplayOrientation(result);
         camera.setParameters(parameters);
-    }
-
-    public void onOrientationChanged(int orientation, Camera.Parameters parameters) {
-        if (orientation == ORIENTATION_UNKNOWN) return;
-        android.hardware.Camera.CameraInfo info =
-                new android.hardware.Camera.CameraInfo();
-        android.hardware.Camera.getCameraInfo(0, info);
-        orientation = (orientation + 45) / 90 * 90;
-        int rotation = 0;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            rotation = (info.orientation - orientation + 360) % 360;
-        } else {  // back-facing camera
-            rotation = (info.orientation + orientation) % 360;
-        }
-        Log.d("devNoteCamera", "rotation onOrientationChanged: " + String.valueOf(rotation-90));
-        parameters.setRotation(rotation);
     }
 
     /**
