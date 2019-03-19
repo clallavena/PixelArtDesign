@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +24,6 @@ import info63.iut.pixelartdesign.R;
 
 public class AddFragment extends Fragment{
 
-    private TextView mTextMessage;
     private List<String> imageButtonList = new ArrayList<>();
     private ListView listViewImage;
     private ImageAdapter adapter;
@@ -58,8 +58,25 @@ public class AddFragment extends Fragment{
         //Charger les images dans une liste de string
         if (directoryImage.exists()) chargementPathImages();
 
-        adapter = new ImageAdapter(getActivity(), imageButtonList);
+        if (adapter != null){
+            adapter.setListImagePath(imageButtonList);
+        }else{
+            adapter = new ImageAdapter(getActivity(), imageButtonList);
+        }
         listViewImage.setAdapter(adapter);
+        listViewImage.setClickable(true);
+        listViewImage.setLongClickable(true);
+
+        // TODO: Faire la suppression avec un dialogFragment
+        listViewImage.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.d("long clicked","pos: " + position);
+
+                return true;
+            }
+        });
 
         final FloatingActionButton buttonCapture = (FloatingActionButton) view.findViewById(R.id.add_button);
         buttonCapture.setOnClickListener(new View.OnClickListener(){
@@ -87,7 +104,7 @@ public class AddFragment extends Fragment{
     public void onResume() {
         super.onResume();
         if (directoryImage.exists()) chargementPathImages();
-        adapter = new ImageAdapter(getActivity(), imageButtonList);
+        adapter.setListImagePath(imageButtonList);
         listViewImage.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

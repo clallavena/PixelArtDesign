@@ -36,4 +36,8 @@ public class ImageAdapter extends ArrayAdapter<String> {
 
         return view;
     }
+
+    public void setListImagePath(List<String> listImagePath) {
+        this.listImagePath = listImagePath;
+    }
 }

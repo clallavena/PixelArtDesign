@@ -13,7 +13,10 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:longClickable="true"
+        android:clickable="true"
+        android:focusable="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_button"

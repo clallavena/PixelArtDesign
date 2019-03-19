@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity{
                 } else {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CameraActivity.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
                 }
-                return;
             }
         }
     }
