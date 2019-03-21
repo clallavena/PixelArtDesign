@@ -13,4 +13,9 @@
     <string name="toast_picture">Photo prise !</string>
     <string name="creation_fragment">Fragment création</string>
     <string name="settings_fragment">Fragment Parametre</string>
+    <string name="title_notifications">Notification</string>
+    <string name="suppression_dialogs_text">Supprimer ?</string>
+    <string name="delete_confirmation">Supprimer cette image</string>
+    <string name="cancel_confirmation">Annuler</string>
+    <string name="sentence_suppresion">Etes vous sur de vouloir supprimer cette image de la vue ?</string>
 </resources>

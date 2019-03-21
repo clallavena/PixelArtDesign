@@ -1,4 +1,4 @@
-package info63.iut.pixelartdesign.Interfaces.Camera;
+package info63.iut.pixelartdesign.CameraFiles;
 
 import android.app.Activity;
 import android.hardware.Camera;

@@ -17,4 +17,8 @@
     <string name="toast_picture">Picture taken</string>
     <string name="creation_fragment">Creation Fragment</string>
     <string name="settings_fragment">Settings Fragment</string>
+    <string name="suppression_dialogs_text">Delete ?</string>
+    <string name="delete_confirmation">Delete this image</string>
+    <string name="cancel_confirmation">Cancel</string>
+    <string name="sentence_suppresion">Are you sure to remove this image from the list ?</string>
 </resources>

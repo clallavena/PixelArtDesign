@@ -21,8 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import info63.iut.pixelartdesign.Accessors.FileAccessor;
-import info63.iut.pixelartdesign.Interfaces.Camera.ICamera;
-import info63.iut.pixelartdesign.Interfaces.Files.IMediaFiles;
+import info63.iut.pixelartdesign.Accessors.IMediaFiles;
 import info63.iut.pixelartdesign.R;
 
 public class CameraActivity extends AppCompatActivity implements ICamera {

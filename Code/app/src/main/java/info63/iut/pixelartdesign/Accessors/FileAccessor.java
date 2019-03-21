@@ -5,12 +5,15 @@ import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import info63.iut.pixelartdesign.Interfaces.Files.IMediaFiles;
+import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
 
 public class FileAccessor implements IMediaFiles {
     public static final int MEDIA_TYPE_IMAGE = 1;
+    private List<String> imageButtonList = new ArrayList<>();
 
     /**
      * Créer le directory albumName s'il n'existe pas et vérifie que le type envoyé est bien du type Media
@@ -56,5 +59,30 @@ public class FileAccessor implements IMediaFiles {
             Log.e("devNote", "Directory not created");
         }
         return file;
+    }
+
+    @Override
+    /**
+     * Charge les chemins des images du fichier CameraActivity.ALBUM_NAME dans la liste de string imageButtonList;
+     */
+    public List<String> chargementPathImages(){
+        File directoryImage = getPublicAlbumStorageDir(CameraActivity.ALBUM_NAME);
+
+        for (String s :
+                directoryImage.list()) {
+            if (imageButtonList.contains(directoryImage.getPath() + "/" + s)) continue;
+            imageButtonList.add(directoryImage.getPath() + "/" + s);
+        }
+        Log.d("delete", "chargementPathImages: " + directoryImage.list());
+
+        return imageButtonList;
+    }
+
+    public void deleteFile(int pos){
+        File directoryImage = getPublicAlbumStorageDir(CameraActivity.ALBUM_NAME);
+
+        String[] children = directoryImage.list();
+        File imageToDelete = new File(directoryImage, children[pos]);
+        if (imageToDelete.exists()) imageToDelete.delete();
     }
 }
