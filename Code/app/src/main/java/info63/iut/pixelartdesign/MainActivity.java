@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -15,14 +14,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
 import info63.iut.pixelartdesign.Fragments.AddFragment;
 import info63.iut.pixelartdesign.Fragments.CreationFragment;
 import info63.iut.pixelartdesign.Fragments.HomeFragment;
-import info63.iut.pixelartdesign.Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -46,9 +43,6 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case R.id.navigation_add:
                     selectedFragement = AddFragment.newInstance();
-                    break;
-                case R.id.navigation_settings:
-                    selectedFragement = SettingsFragment.newInstance();
                     break;
             }
             itemSaved = item.getItemId();
@@ -104,9 +98,6 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case R.id.navigation_add:
                     selectedFragement = AddFragment.newInstance();
-                    break;
-                case R.id.navigation_settings:
-                    selectedFragement = SettingsFragment.newInstance();
                     break;
             }
             itemSaved = id;

@@ -61,28 +61,7 @@ public class FileAccessor implements IMediaFiles {
         return file;
     }
 
-    @Override
-    /**
-     * Charge les chemins des images du fichier CameraActivity.ALBUM_NAME dans la liste de string imageButtonList;
-     */
-    public List<String> chargementPathImages(){
-        File directoryImage = getPublicAlbumStorageDir(CameraActivity.ALBUM_NAME);
-
-        for (String s :
-                directoryImage.list()) {
-            if (imageButtonList.contains(directoryImage.getPath() + "/" + s)) continue;
-            imageButtonList.add(directoryImage.getPath() + "/" + s);
-        }
-        Log.d("delete", "chargementPathImages: " + directoryImage.list());
-
+    public List<String> getImageButtonList() {
         return imageButtonList;
-    }
-
-    public void deleteFile(int pos){
-        File directoryImage = getPublicAlbumStorageDir(CameraActivity.ALBUM_NAME);
-
-        String[] children = directoryImage.list();
-        File imageToDelete = new File(directoryImage, children[pos]);
-        if (imageToDelete.exists()) imageToDelete.delete();
     }
 }

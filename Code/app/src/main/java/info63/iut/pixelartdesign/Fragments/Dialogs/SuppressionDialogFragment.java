@@ -10,11 +10,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
 import info63.iut.pixelartdesign.Accessors.FileAccessor;
+import info63.iut.pixelartdesign.Accessors.FileModifier;
 import info63.iut.pixelartdesign.Accessors.IMediaFiles;
+import info63.iut.pixelartdesign.Accessors.IModifier;
 import info63.iut.pixelartdesign.R;
 
 public class SuppressionDialogFragment extends DialogFragment {
     IMediaFiles fileAccessor = new FileAccessor();
+    IModifier fileModifier = new FileModifier();
     public final static int REQUEST_CODE_DIALOG = 0;
 
     public SuppressionDialogFragment(){
@@ -37,7 +40,7 @@ public class SuppressionDialogFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //fileAccessor.deleteFile(getArguments().getString("path"));
-                fileAccessor.deleteFile(getArguments().getInt("pos"));
+                fileModifier.deleteFile(getArguments().getInt("pos"));
                 getTargetFragment().onActivityResult(getTargetRequestCode(), REQUEST_CODE_DIALOG, null);
                 dismiss();
             }

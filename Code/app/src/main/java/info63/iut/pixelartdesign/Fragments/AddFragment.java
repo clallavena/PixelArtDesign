@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info63.iut.pixelartdesign.Accessors.FileAccessor;
+import info63.iut.pixelartdesign.Accessors.FileModifier;
 import info63.iut.pixelartdesign.Accessors.IMediaFiles;
+import info63.iut.pixelartdesign.Accessors.IModifier;
 import info63.iut.pixelartdesign.Adapter.ImageAdapter;
 import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
 import info63.iut.pixelartdesign.Fragments.Dialogs.SuppressionDialogFragment;
@@ -31,6 +33,7 @@ public class AddFragment extends Fragment{
     private ListView listViewImage;
     private ImageAdapter adapter;
     private IMediaFiles fileAccessor = new FileAccessor();
+    private IModifier fileModifier = new FileModifier();
     private File directoryImage = fileAccessor.getPublicAlbumStorageDir(CameraActivity.ALBUM_NAME);
 
     public static AddFragment newInstance(){
@@ -48,7 +51,7 @@ public class AddFragment extends Fragment{
         listViewImage = view.findViewById(R.id.list_item);
 
         //Charger les images dans une liste de string
-        if (directoryImage.exists()) imageButtonList = fileAccessor.chargementPathImages();
+        if (directoryImage.exists()) imageButtonList = fileModifier.chargementPathImages();
 
         if (adapter != null){
             adapter.setListImagePath(imageButtonList);
@@ -93,7 +96,7 @@ public class AddFragment extends Fragment{
             // TODO: debug
             if (directoryImage.exists()) {
                 Log.d("delete", "onActivityResult: " + imageButtonList.toString());
-                imageButtonList = fileAccessor.chargementPathImages();
+                imageButtonList = fileModifier.chargementPathImages();
                 Log.d("delete", "onActivityResult: " + imageButtonList.toString());
             }
             adapter.setListImagePath(imageButtonList);
@@ -115,7 +118,7 @@ public class AddFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        if (directoryImage.exists()) imageButtonList = fileAccessor.chargementPathImages();
+        if (directoryImage.exists()) imageButtonList = fileModifier.chargementPathImages();
         adapter.setListImagePath(imageButtonList);
         listViewImage.setAdapter(adapter);
         adapter.notifyDataSetChanged();

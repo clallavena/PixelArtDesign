@@ -9,7 +9,4 @@ import java.util.List;
 public interface IMediaFiles {
     File getOutputMediaFile(int type, String albumName);
     File getPublicAlbumStorageDir(String albumName);
-    // A enlever
-    List<String> chargementPathImages();
-    void deleteFile(int position);
 }
