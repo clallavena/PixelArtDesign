@@ -1,7 +1,6 @@
 package info63.iut.pixelartdesign.CameraFiles;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.support.v4.app.ActivityCompat;
@@ -9,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Surface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -24,13 +22,14 @@ import info63.iut.pixelartdesign.Accessors.FileAccessor;
 import info63.iut.pixelartdesign.Accessors.IMediaFiles;
 import info63.iut.pixelartdesign.R;
 
-public class CameraActivity extends AppCompatActivity implements ICamera {
+public class CameraActivity extends AppCompatActivity{
     public static final int MY_CAMERA_REQUEST_CODE = 100;
     public static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 110;
     public static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 120;
     public static final String ALBUM_NAME = "PixelArtsDesign_Photo";
     private Camera mCamera;
     private CameraPreview mPreview;
+    private CameraManager cameraManager = new CameraManager();
 
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
@@ -75,12 +74,12 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
 
-            mCamera = getCameraInstance();
+            mCamera = cameraManager.getCameraInstance();
             Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
 
-            setCameraDisplayOrientation(this, 0, mCamera);
+            cameraManager.setCameraDisplayOrientation(this, 0, mCamera);
 
-            // Create our Preview view and set it as the content of our activity.
+            // Créer notre Preview view et le paramètre comme notre content de notre activity.
             mPreview = new CameraPreview(this, mCamera);
             final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
             preview.addView(mPreview);
@@ -100,36 +99,6 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
         );
     }
 
-    @Override
-    public void setCameraDisplayOrientation(Activity activity,
-                                                   int cameraId, Camera camera) {
-        Camera.CameraInfo info = new Camera.CameraInfo();
-        Camera.getCameraInfo(cameraId, info);
-        int rotation = activity.getWindowManager().getDefaultDisplay()
-                .getRotation();
-        Camera.Parameters parameters = camera.getParameters();
-        int degrees = 0;
-        switch (rotation) {
-            case Surface.ROTATION_0: degrees = 0; break;
-            case Surface.ROTATION_90: degrees = 90; break;
-            case Surface.ROTATION_180: degrees = 180; break;
-            case Surface.ROTATION_270: degrees = 270; break;
-        }
-
-        int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            result = (info.orientation + degrees) % 360;
-            result = (360 - result) % 360;
-        } else {
-            result = (info.orientation - degrees + 360) % 360;
-        }
-        Log.d("devNoteCamera", String.valueOf(result));
-        //onOrientationChanged(result, parameters);
-        parameters.setRotation(result);
-        camera.setDisplayOrientation(result);
-        camera.setParameters(parameters);
-    }
-
     /**
      * Gère les résultas de permissions, cache la vue camera si les permissions ne sont pas acceptés, fait fonctionné l'application normalement sinon
      * @param requestCode corresspond au code de la permission demandé
@@ -144,10 +113,10 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("devNote", "Permission granted for camera");
 
-                    mCamera = getCameraInstance();
+                    mCamera = cameraManager.getCameraInstance();
                     Log.d("devNote", String.valueOf(Camera.getNumberOfCameras()));
 
-                    setCameraDisplayOrientation(this, 0, mCamera);
+                    cameraManager.setCameraDisplayOrientation(this, 0, mCamera);
 
                     // Create our Preview view and set it as the content of our activity.
                     mPreview = new CameraPreview(this, mCamera);
@@ -193,20 +162,6 @@ public class CameraActivity extends AppCompatActivity implements ICamera {
                 return;
             }
         }
-    }
-
-
-    // TODO: Faire une action pour la caméra frontale, id=1, faire une vérif du nombre de caméra disponible sur l'appareil.
-    @Override
-    public Camera getCameraInstance(){
-        Camera c = null;
-        try {
-            c = Camera.open();
-        }
-        catch (Exception e){
-            Log.d("devNote", "Camera unreachable");
-        }
-        return c; // returns null if camera is unavailable
     }
 
     @Override

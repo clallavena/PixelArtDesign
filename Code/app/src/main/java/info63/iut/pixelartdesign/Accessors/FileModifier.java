@@ -8,8 +8,8 @@ import java.util.List;
 import info63.iut.pixelartdesign.CameraFiles.CameraActivity;
 
 public class FileModifier implements IModifier {
-    FileAccessor fi = new FileAccessor();
-    List<String> imageButtonList;
+    private FileAccessor fi = new FileAccessor();
+    private List<String> imageButtonList;
 
     @Override
     /**

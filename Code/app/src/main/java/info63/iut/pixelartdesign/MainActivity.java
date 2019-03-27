@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity{
     };
 
     @Override
-    // TODO: Régler le pb du NullPointerException sur le setContentView avec la balise <fragment>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -85,7 +84,6 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d("devNote", "onRestoreInstanceState: " + savedInstanceState.isEmpty());
         if (savedInstanceState.getInt("positionNavigation") != 0){
             int id = savedInstanceState.getInt("positionNavigation");
             Log.d("devNote", "onRestoreInstanceState: " + id + " " + R.id.navigation_creation);
