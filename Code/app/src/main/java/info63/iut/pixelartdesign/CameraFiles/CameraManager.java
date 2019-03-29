@@ -34,7 +34,6 @@ public class CameraManager implements ICamera {
     }
 
     @Override
-    // TODO: Faire une action pour la caméra frontale, id=1, faire une vérif du nombre de caméra disponible sur l'appareil.
     public Camera getCameraInstance() {
         Camera c = null;
         try {

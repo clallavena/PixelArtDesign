@@ -29,7 +29,7 @@ public class CameraActivity extends AppCompatActivity{
     public static final String ALBUM_NAME = "PixelArtsDesign_Photo";
     private Camera mCamera;
     private CameraPreview mPreview;
-    private CameraManager cameraManager = new CameraManager();
+    private ICamera cameraManager = new CameraManager();
 
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override

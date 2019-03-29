@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity{
     private TextView mTextMessage;
     private Intent intentAddActivity;
     private Fragment selectedFragement;
-    private Activity here = this;
     private int itemSaved;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

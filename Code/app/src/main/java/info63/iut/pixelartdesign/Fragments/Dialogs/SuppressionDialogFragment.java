@@ -16,7 +16,6 @@ import info63.iut.pixelartdesign.Accessors.IModifier;
 import info63.iut.pixelartdesign.R;
 
 public class SuppressionDialogFragment extends DialogFragment {
-    IMediaFiles fileAccessor = new FileAccessor();
     IModifier fileModifier = new FileModifier();
     public final static int REQUEST_CODE_DIALOG = 0;
 
