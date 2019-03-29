@@ -39,7 +39,6 @@ public class SuppressionDialogFragment extends DialogFragment {
         builder.setMessage(R.string.sentence_suppresion).setPositiveButton(R.string.delete_confirmation, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //fileAccessor.deleteFile(getArguments().getString("path"));
                 fileModifier.deleteFile(getArguments().getInt("pos"));
                 getTargetFragment().onActivityResult(getTargetRequestCode(), REQUEST_CODE_DIALOG, null);
                 dismiss();

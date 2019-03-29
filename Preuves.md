@@ -16,6 +16,12 @@ buttonCapture.setOnClickListener(new View.OnClickListener(){
 L'application utilise le SDK le plus bas possible avec 100% de portabilité vers les téléphones Android: l'API 15: avec la version d'Android 4.0.3 (IceCreamSandwich)
 
 #### Je sais distinguer mes ressources en utilisant les qualifier.
+L'utilisation de qualifier est présent dans le code. Notamment lors d'appels aux ressources Strings.
+
+*Extrait du code de la classe SuppresionDialogFragment*
+```xml
+builder.setMessage(R.string.sentence_suppresion).setPositiveButton(R.string.delete_confirmation, [...]);
+```
 
 #### Je sais modifier le manifeste de l'application en fonction de mes besoins.
 Le manifeste de l'application a été modifié afin de permettre l'ajout des autorisation et aussi de bloquer la rotation sur la partie Caméra.
@@ -60,6 +66,7 @@ Notamment dans la partie accession des fichiers, notre application utilise ce pr
 Le metier est séparé de la Vue, la vue ne contient pas de métier, ils sont strictement séparé.
 
 #### Je sais parfaitement séparer vue et modèle
+La vue et les modèles sont parfaitement séparés, en effet le modèle n'interfère jamais dans la création de la vue, la vue peut très bien fonctionné sans le modèle.
 
 #### Je maîtrise le cycle de vie de mon application.
 Le cycle de vie de mon application intervient plusieurs fois, lors d'une rotation nous sauvegardons la position du menu grâce au onSaveInstanceState et nous la restorons au moment voulu grâce au onRestoreInstanceState.
@@ -145,7 +152,7 @@ case MY_CAMERA_REQUEST_CODE: {
 ```
 
 #### Je sais gérer la persistance légère de mon application
-
+Nous utilisons le principe de Bundle afin de persister des données au sein de l'application, 
 
 #### Je sais gérer la persistance profonde de mon application
 L'application utilise la Caméra, de ce fait nous avons utiliser la possibilité de capture d'image, ils nous as donc fallu enregistrer ces images dans un fichier. Les classes FileAccessor et FileModifier accède et modifie dans un fichier.

@@ -93,7 +93,6 @@ public class AddFragment extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SuppressionDialogFragment.REQUEST_CODE_DIALOG){
-            // TODO: debug
             if (directoryImage.exists()) {
                 Log.d("delete", "onActivityResult: " + imageButtonList.toString());
                 imageButtonList = fileModifier.chargementPathImages();
